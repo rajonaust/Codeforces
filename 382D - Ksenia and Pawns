@@ -1,0 +1,86 @@
+/*
+    Author : RAJON BARDHAN
+    AUST CSE 27th Batch
+    All my programming success are dedicated to my mom , dad , little sister madhobi , teachers , friends and love TANIA SULTANA RIMY
+
+    Problem Name : 382D - Ksenia and Pawns ( Codeforces - Round #224 (Div. 2) - D )
+    ALGORITHM : Graph
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define ff first
+#define ss second
+#define mp make_pair
+#define memo(a,b) memset(a,b,sizeof(a))
+#define INF 1e9
+#define EPS 1e-8
+#define PI 3.14159265358979323846
+
+typedef long long ll ;
+typedef unsigned long long ull ;
+
+/* int dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+/* int dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+/* int dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+/* int dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
+int n , m , d0, d1 , visited = 0 ;
+char input[2000+10][2000+10];
+
+bool valid(int row,int col,char x)
+{
+    if(row>=1&&row<=n&&col>=1&&col<=m&&input[row][col]==x) return true ;
+    else return false ;
+}
+
+int dfs(int row,int col,char x)
+{
+    if(!valid(row,col,x)) return 0 ;
+    visited++;
+
+    int ret = 0 ;
+    ret=max(ret,dfs(row-1,col,'v'));
+    ret=max(ret,dfs(row+1,col,'^'));
+    ret=max(ret,dfs(row,col-1,'>'));
+    ret=max(ret,dfs(row,col+1,'<'));
+
+    return ret+1 ;
+}
+
+void update(int d)
+{
+    if(d>=d0) d1 = d0 , d0 = d ;
+    else if(d>=d1) d1 = d ;
+}
+
+int main()
+{
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
+    cin >> n >> m ;
+    for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin >> input[i][j] ;
+
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            if(input[i][j]=='#')
+            {
+                visited++;
+                update(dfs(i-1,j,'v'));
+                update(dfs(i+1,j,'^'));
+                update(dfs(i,j-1,'>'));
+                update(dfs(i,j+1,'<'));
+            }
+        }
+    }
+
+    if(visited<n*m) puts("-1");
+    else if(d0==d1) cout << d0+d1 << endl ;
+    else cout << (d0+max(d0-1,d1)) << endl ;
+
+    return 0;
+}
