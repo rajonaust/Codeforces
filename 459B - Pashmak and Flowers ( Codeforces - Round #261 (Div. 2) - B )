@@ -1,0 +1,59 @@
+/*
+    Author : RAJON BARDHAN
+    AUST CSE 27th Batch
+    All my programming success are dedicated to my mom , dad , little sister madhobi , teachers , friends and love TANIA SULTANA RIMY
+
+    Problem Name : 459B - Pashmak and Flowers ( Codeforces - Round #261 (Div. 2) - B )
+    ALGORITHM : Simulation
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define ff first
+#define ss second
+#define mp make_pair
+#define memo(a,b) memset(a,b,sizeof(a))
+#define INF 1e9
+#define EPS 1e-8
+#define PI 3.14159265358979323846
+
+typedef long long ll ;
+typedef unsigned long long ull ;
+
+/* int dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+/* int dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+/* int dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+/* int dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
+int n , b[2*100000+10];
+
+int main()
+{
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++) scanf("%d",&b[i]);
+
+    sort(&b[1],&b[n+1]);
+
+    bool flag = true ;
+    for(int i=1;i<=n;i++) if(b[i]!=b[1]) flag = false ;
+
+    if(flag)
+    {
+        ll ans = n ;
+        ans = ans*(ans-1);
+        ans/=2;
+        cout << "0 " << ans << endl ;
+    }
+    else
+    {
+        cout << b[n] - b[1] << ' ' ;
+        ll cnt1 = count(&b[1],&b[n+1],b[1]);
+        ll cnt2 = count(&b[1],&b[n+1],b[n]);
+        cout << cnt1*cnt2 << endl ;
+    }
+    return 0;
+}
