@@ -1,0 +1,64 @@
+/*
+    Author : RAJON BARDHAN
+    AUST CSE 27th Batch
+    All my programming success are dedicated to my mom , dad , little sister madhobi , teachers , friends and love TANIA SULTANA RIMY
+
+    Problem Name : 459A - Pashmak and Garden ( Codeforces - Round #261 (Div. 2) - A )
+    ALGORITHM : Geometry
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define ff first
+#define ss second
+#define mp make_pair
+#define memo(a,b) memset(a,b,sizeof(a))
+#define INF 1e9
+#define EPS 1e-8
+#define PI 3.14159265358979323846
+
+typedef long long ll ;
+typedef unsigned long long ull ;
+
+/* int dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+/* int dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+/* int dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+/* int dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
+int x1 , x2 , y1 , y2 ;
+
+int ok()
+{
+    if(x1==x2) return 1 ;
+    if(y1==y2) return 2 ;
+    if(abs(x1-x2)==abs(y1-y2)) return 3 ;
+    return -1 ;
+}
+
+int main()
+{
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
+    cin >> x1 >> y1 >> x2 >> y2 ;
+    int t = ok() ;
+
+    if(t!=-1)
+    {
+        int dif ;
+        if(t==2) dif = abs(x1-x2);
+        else dif = abs(y1-y2) ;
+
+        if(t==2) cout << x1 << ' ' << y1+dif << ' ' << x2 << ' ' << y2+dif << endl ;
+        else if(t==1) cout << x1+dif << ' ' << y1 << ' ' << x2+dif << ' ' << y2 << endl ;
+        else
+        {
+            if(x1>x2) swap(x1,x2) , swap(y1,y2);
+            cout << x1+dif << ' ' << y1 << ' ' << x2-dif << ' ' << y2 << endl ;
+        }
+    }
+    else puts("-1");
+
+    return 0;
+}
